@@ -1,5 +1,8 @@
 import React from 'react'
-import {GoogleMap, useJsApiLoader} from '@react-google-maps/api';
+import {GoogleMap, MarkerF, useJsApiLoader} from '@react-google-maps/api';
+import busstop from "@/pages/api/busstop";
+import nearbybusstop from "@/pages/api/nearbybusstop";
+
 
 const containerStyle = {
   width: '800px',
@@ -9,10 +12,12 @@ const containerStyle = {
 
 const google = React.memo(
 function MyComponent() {
-    const {isLoaded} = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: "apikey"
-    })
+  const {isLoaded} = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "apikey"
+  })
+
+  const [center, setCenter] = React.useState({lat: 37.53790779023827, lng: 126.9993782043457});
 
   const [map, setMap] = React.useState(null)
 
@@ -54,19 +59,55 @@ function MyComponent() {
   }, [])
 
 
+  const makerOnclick = () => {
+    let promise = busstop({busStopName: '명동입구'});
+    promise.then((busstopXy) => {
+      console.log(busstopXy);
+      const [realXy, realXy2, realXy3] = busstopXy.msgBody.itemList;
+      setXys([{
+        lat: parseFloat(realXy.tmY),
+        lng: parseFloat(realXy.tmX)
+      }, {
+        lat: parseFloat(realXy2.tmY),
+        lng: parseFloat(realXy2.tmX)
+      }, {
+        lat: parseFloat(realXy3.tmY),
+        lng: parseFloat(realXy3.tmX)
+      }]);
+    });
+
+  }
+
+
+
+
   return isLoaded ? (
       <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={17}
+          zoom={10}
           onLoad={onLoad}
           onUnmount={onUnmount}
           onClick={onClick}
       >
-        { /* Child components, such as markers, info windows, etc. */}
-        <></>
+        <>
+
+          {
+            xys.map((xy, idx) => {
+              console.log("xy -> ",idx,xy);
+              return <MarkerF key={idx} position={xy} onClick={makerOnclick}/>
+            })
+          };
+          {
+            mapClickMakers.map((xy, idx) => {
+              return <MarkerF key={idx} position={xy} onClick={makerOnclick}/>
+            })
+          };
+
+        </>
       </GoogleMap>
   ) : <></>
 }
+);
 
-export default React.memo(MyComponent)
+export default google
