@@ -1,5 +1,5 @@
 const busstop = async ({busStopName}: { busStopName: string }) => {
-    const res = await fetch(`/api/rest/stationinfo/getStationByName?serviceKey=apikey&stSrch=${encodeURIComponent(busStopName)}&resultType=json`);
+    const res = await fetch(`/api/rest/busStop/getByName/${encodeURIComponent(busStopName)}`);
     return await res.json();
 }
 

@@ -1,5 +1,6 @@
-const nearByBusStop = async (busStopXy: { tmX: number, tmY: number }) => {
-    const res = await fetch(`/api/rest/stationinfo/getStationByPos?serviceKey=apikey&tmX=${encodeURIComponent(busStopXy.tmX)}&tmY=${encodeURIComponent(busStopXy.tmY)}&radius=200&resultType=json`);
+const nearByBusStop = async (busStopXy: { lng: number, lat: number }) => {
+
+    const res = await fetch(`/api/rest/busStop/getByPos/${encodeURIComponent(busStopXy.lng)}/${encodeURIComponent(busStopXy.lat)}`);
     return await res.json();
 }
 

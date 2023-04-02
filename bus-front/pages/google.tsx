@@ -12,17 +12,19 @@ const containerStyle = {
 
 const google = React.memo(
 function MyComponent() {
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
   const {isLoaded} = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "apikey"
+    googleMapsApiKey: `${googleApiKey}`
   })
 
-  const [center, setCenter] = React.useState({lat: 37.53790779023827, lng: 126.9993782043457});
 
+  const initialCenter = {lat: 37.53790779023827, lng: 126.9993782043457};
+  const [center, setCenter] = React.useState(initialCenter);
   const [map, setMap] = React.useState(null)
-
-  const [xys, setXys] = React.useState([{lat: 37.53790779023827, lng: 126.9993782043457}]);
-  const [mapClickMakers, setMapClickMakers] = React.useState([{lat: 37.53790779023827, lng: 126.9993782043457}]);
+  const [xys, setXys] = React.useState([initialCenter]);
+  const [mapClickMakers, setMapClickMakers] = React.useState([initialCenter]);
 
   const onLoad = React.useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -41,7 +43,7 @@ function MyComponent() {
     const lng = map.latLng.lng();
     setCenter({lat: lat ,lng: lng});
     console.log("lat, lng -> {},{}", lat, lng);
-    nearbybusstop({tmX: lng, tmY: lat})
+    nearbybusstop({lng: lng, lat: lat})
     .then((busstopXy) => {
       console.log(busstopXy);
       const itemList = busstopXy.msgBody.itemList;
