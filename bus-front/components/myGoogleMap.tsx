@@ -2,16 +2,17 @@ import React from 'react'
 import {GoogleMap, MarkerF, useJsApiLoader} from '@react-google-maps/api';
 import busstop from "@/pages/api/busstop";
 import nearbybusstop from "@/pages/api/nearbybusstop";
+import {Button} from "@mui/material";
 
 
 const containerStyle = {
-  width: '800px',
-  height: '800px'
+  width: '100%',
+  height: '100vh'
 };
 
 
-const google = React.memo(
-function MyComponent() {
+const MyGoogleMap = React.memo(
+    () => {
   const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const {isLoaded} = useJsApiLoader({
@@ -38,25 +39,25 @@ function MyComponent() {
     setMap(null)
   }, [])
 
-  const onClick = React.useCallback(function callback(map) {
+  const onClick = React.useCallback(function (map) {
     const lat = map.latLng.lat();
     const lng = map.latLng.lng();
-    setCenter({lat: lat ,lng: lng});
+    setCenter({lat: lat, lng: lng});
     console.log("lat, lng -> {},{}", lat, lng);
     nearbybusstop({lng: lng, lat: lat})
-    .then((busstopXy) => {
-      console.log(busstopXy);
-      const itemList = busstopXy.msgBody.itemList;
-      if(!itemList) return;
-      setMapClickMakers(itemList
-      .filter((item) => item && item.gpsX && item.gpsY)
-      .map((item) => {
-        return {
-          lat: parseFloat(item.gpsY),
-          lng: parseFloat(item.gpsX)
-        }
-      }));
-    });
+        .then((busstopXy) => {
+          console.log(busstopXy);
+          const itemList = busstopXy.msgBody.itemList;
+          if (!itemList) return;
+          setMapClickMakers(itemList
+              .filter((item) => item && item.gpsX && item.gpsY)
+              .map((item) => {
+                return {
+                  lat: parseFloat(item.gpsY),
+                  lng: parseFloat(item.gpsX)
+                }
+              }));
+        });
 
   }, [])
 
@@ -112,4 +113,4 @@ function MyComponent() {
 }
 );
 
-export default google
+export default MyGoogleMap
