@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import MyGoogleMap from "@/components/myGoogleMap";
 import {Grid} from "@mui/material";
 import {MySearchConsole} from "@/components/mySearchConsole";
 
+
+
 export default function Home() {
+    const [selectedBusStopList, setSeletedBusStopList] = useState([]);
     return (
         <>
             <Grid container spacing={2}
@@ -11,11 +14,11 @@ export default function Home() {
                   justifyContent="flex-start"
                   alignItems="flex-start"
             >
-                <Grid item xs={3}>
-                    <MySearchConsole/>
+                <Grid item xs={3} >
+                    <MySearchConsole selectedBusStopList={selectedBusStopList} />
                 </Grid>
                 <Grid item xs>
-                    <MyGoogleMap/>
+                    <MyGoogleMap setSeletedBusStopList={setSeletedBusStopList}/>
                 </Grid>
             </Grid>
         </>

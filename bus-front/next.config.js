@@ -15,6 +15,10 @@ const rewrites = async () => {
       source: "/api/rest/busStop/getByPos/:lng/:lat",
       destination: `http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?serviceKey=${busstopKey}&tmX=:lng&tmY=:lat&radius=200&resultType=json`
     },
+    {
+      source: "/api/rest/busStopKorea/getByPos/:lng/:lat",
+      destination: `https://apis.data.go.kr/1613000/BusSttnInfoInqireService/getCrdntPrxmtSttnList?serviceKey=${busstopKey}&pageNo=1&numOfRows=10&_type=json&gpsLati=:lat&gpsLong=:lng`
+    }
   ];
 };
 module.exports = { rewrites };
