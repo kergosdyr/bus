@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, CardContent, Typography } from '@mui/material';
+import {Card, CardContent, Typography} from '@mui/material';
 
 const StyledCard = styled(Card)`
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
+
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
@@ -30,16 +31,28 @@ const StyledSubtitle = styled(Typography)`
   margin-bottom: 20px;
 `;
 
-const MyMuiCard = ({ title, subtitle, children } : {title: string, subtitle:string, children:string}) => {
-    return (
-        <StyledCard>
-            <StyledCardContent>
-                <StyledTitle>{title}</StyledTitle>
-                <StyledSubtitle>{subtitle}</StyledSubtitle>
-                {children}
-            </StyledCardContent>
+const MyMuiCard = ({title, subtitle, children, cardOnClick}: {
+  title: string,
+  subtitle: string,
+  children: string,
+  cardOnClick: Function
+}) => {
+
+  const onClickEventHandler = () => {
+    cardOnClick();
+  }
+
+  return (
+      <>
+        <StyledCard onClick={onClickEventHandler}>
+          <StyledCardContent>
+            <StyledTitle>{title}</StyledTitle>
+            <StyledSubtitle>{subtitle}</StyledSubtitle>
+            {children}
+          </StyledCardContent>
         </StyledCard>
-    );
+      </>
+  );
 };
 
 export default MyMuiCard;

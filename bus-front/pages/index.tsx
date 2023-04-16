@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import MyGoogleMap from "@/components/myGoogleMap";
+import MyGoogleMap from "@/components/MyGoogleMap";
 import {Grid} from "@mui/material";
-import {MySearchConsole} from "@/components/mySearchConsole";
+import {MySearchConsole} from "@/components/MySearchConsole";
 
 
 
@@ -14,7 +14,7 @@ export default function Home() {
                   justifyContent="flex-start"
                   alignItems="flex-start"
             >
-                <Grid item xs={3} >
+                <Grid item xs={3} sx={{overflowY: "scroll", maxHeight: "100vh" }}>
                     <MySearchConsole selectedBusStopList={selectedBusStopList} />
                 </Grid>
                 <Grid item xs>
