@@ -8,6 +8,7 @@ import styled from "styled-components";
 import {Stack} from "@mui/system";
 import MyMuiCard from "@/components/MyMuiCard";
 import MyMuiPopup from "@/components/MyMuiPopup";
+import getStationBusBasicInfo from "@/pages/api/getStationBusBasicInfo";
 
 const StyledStack = styled(Stack)`
   margin-left: 16px;
@@ -43,64 +44,75 @@ const MyTextField = styled(TextField)`
 `
 export const MySearchConsole = (props) => {
 
-  const selectedBusStopList = props.selectedBusStopList;
-  const [isModalPopupOpen, setModalPopupOpen] = useState(false);
+    const selectedBusStopList = props.selectedBusStopList;
+    const [isModalPopupOpen, setModalPopupOpen] = useState(false);
 
-  let clickedBusStopName : string;
-  const [toModal, setToModal] = useState({modalTitle: "", modalSubTitle: "", modalContent: ""});
-  const cardOnClick = ({modalTitle, modalSubTitle, modalContent} : {modalTitle: string, modalSubTitle: string, modalContent :string}) => {
-    setToModal({
-      modalTitle: modalTitle,
-      modalSubTitle: modalSubTitle,
-      modalContent : modalContent
-    })
-    setModalPopupOpen(!isModalPopupOpen);
-  }
+    let clickedBusStopName: string;
+    const [toModal, setToModal] = useState({modalTitle: "", modalSubTitle: "", modalContent: "", modalListCnt: 0});
+    const cardOnClick = async ({
+                                   modalTitle,
+                                   modalSubTitle,
+                                   modalContent
+                               }: { modalTitle: string, modalSubTitle: string, modalContent: string }) => {
+        const busBasicInfoLen = await getStationBusBasicInfo(modalContent)
+            .then((busBasicInfoResult) => {
+                const busBasicInfos = busBasicInfoResult.msgBody.itemList;
+                return busBasicInfos.length;
+            });
 
-  return (
-      <>
-        <StyledEngineProvider injectFirst>
-          <StyledStack>
-            <MyTextField/>
-            {
-              selectedBusStopList.length === 0 ?
+        setToModal({
+            modalTitle: modalTitle,
+            modalSubTitle: modalSubTitle,
+            modalContent: modalContent,
+            modalListCnt: busBasicInfoLen
+        })
+        setModalPopupOpen(!isModalPopupOpen);
+    }
 
-                  <MyMuiCard
-                      title={"검색 결과가 없습니다."}
-                      subtitle={"검색어를 입력해주세요."}
-                      children={"없음"}
-                      cardOnClick={() => cardOnClick({
-                        modalTitle: "검색 결과가 없습니다.",
-                        modalSubTitle: "검색어를 입력해주세요.",
-                        modalContent : "정류서 정보가 없습니다."
-                      })}
-                  />
+    return (
+        <>
+            <StyledEngineProvider injectFirst>
+                <StyledStack>
+                    <MyTextField/>
+                    {
+                        selectedBusStopList.length === 0 ?
 
-                  :
-                  selectedBusStopList.map((busStop, idx) => {
-                    return (
-                        <MyMuiCard
-                            key={idx}
-                            title={busStop.stationNm}
-                            subtitle={busStop.stationId}
-                            children={busStop.arsId}
-                            cardOnClick={() => cardOnClick({
-                              modalTitle: busStop.stationNm,
-                              modalSubTitle: busStop.stationId,
-                              modalContent : busStop.arsId,
-                            })}
-                        />
-                    );
-                  })
-            }
+                            <MyMuiCard
+                                title={"검색 결과가 없습니다."}
+                                subtitle={"검색어를 입력해주세요."}
+                                children={"없음"}
+                                cardOnClick={() => cardOnClick({
+                                    modalTitle: "검색 결과가 없습니다.",
+                                    modalSubTitle: "검색어를 입력해주세요.",
+                                    modalContent: "정류서 정보가 없습니다."
+                                })}
+                            />
 
-          </StyledStack>
-          {isModalPopupOpen &&
-              <MyMuiPopup isOpen={isModalPopupOpen} setIsPopupOpen={setModalPopupOpen}
-                          modalInfo={toModal}/>}
+                            :
+                            selectedBusStopList.map((busStop, idx) => {
+                                return (
+                                    <MyMuiCard
+                                        key={idx}
+                                        title={busStop.stationNm}
+                                        subtitle={busStop.stationId}
+                                        children={busStop.arsId}
+                                        cardOnClick={() => cardOnClick({
+                                            modalTitle: busStop.stationNm,
+                                            modalSubTitle: busStop.stationId,
+                                            modalContent: busStop.arsId,
+                                        })}
+                                    />
+                                );
+                            })
+                    }
 
-        </StyledEngineProvider>
-      </>
-  );
+                </StyledStack>
+                {isModalPopupOpen &&
+                    <MyMuiPopup isOpen={isModalPopupOpen} setIsPopupOpen={setModalPopupOpen}
+                                modalInfo={toModal}/>}
+
+            </StyledEngineProvider>
+        </>
+    );
 
 };
