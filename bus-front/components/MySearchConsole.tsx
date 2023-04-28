@@ -107,8 +107,7 @@ export const MySearchConsole = (props) => {
                     }
 
                 </StyledStack>
-                {isModalPopupOpen &&
-                    <MyMuiPopup isOpen={isModalPopupOpen} setIsPopupOpen={setModalPopupOpen}
+                {isModalPopupOpen && <MyMuiPopup isOpen={isModalPopupOpen} setIsPopupOpen={setModalPopupOpen}
                                 modalInfo={toModal}/>}
 
             </StyledEngineProvider>

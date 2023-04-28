@@ -3,9 +3,6 @@ import {Box, Typography} from "@mui/material";
 import getStationBusBasicInfo from "@/pages/api/getStationBusBasicInfo";
 
 const BusBasicInfo = (props) => {
-
-
-
     return (
         <Box>
             <Typography>정류장 버스 기본 정보</Typography>
