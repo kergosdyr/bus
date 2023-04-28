@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {Box, StyledEngineProvider, Typography} from "@mui/material";
+import getStationBusBasicInfo from "@/pages/api/getStationBusBasicInfo";
+import BusBasicInfo from "@/components/BusBasicInfo";
+
 
 
 const ModalButton = styled(Button)`
@@ -34,7 +37,9 @@ const MuiPopup = ({isOpen, setIsPopupOpen, modalInfo}: {
   setIsPopupOpen: Function,
   modalInfo : {
     modalTitle: string,
-    modalSubTitle: string
+    modalSubTitle: string,
+    modalContent : string,
+
   }
 }) => {
 
@@ -42,6 +47,32 @@ const MuiPopup = ({isOpen, setIsPopupOpen, modalInfo}: {
   const closeButtonOnClickHandler = () => {
     setIsPopupOpen(false);
   }
+
+  const [busBasicInfoList, setBusBasicInfoList] = useState([]);
+
+
+    const GvBusBasicInfoList = React.createContext(busBasicInfoList);
+
+
+
+  useEffect(() => {
+
+      //why? 왜 무한호출이 되는가 아래 로직을 제거 하면
+      if(busBasicInfoList.length >0){
+          return;
+      }
+
+    console.log("useEffect ing......"+JSON.stringify(modalInfo));
+      getStationBusBasicInfo(modalInfo.modalContent)
+          .then((busBasicInfoResult) => {
+              const busBasicInfos = busBasicInfoResult.msgBody.itemList;
+
+              setBusBasicInfoList(busBasicInfos);
+              console.log("busBasicInfoResult result......"+JSON.stringify(busBasicInfos));
+          });
+    return () => {console.log("useEffect return......");}
+  });
+
 
 
   return (
@@ -61,6 +92,12 @@ const MuiPopup = ({isOpen, setIsPopupOpen, modalInfo}: {
               Close
             </ModalButton>
           </StyledBox>
+
+            <BusBasicInfo busBasicList={busBasicInfoList}/>
+           {/* <GvBusBasicInfoList.Provider busBasicInfoList=busBasicInfoList>
+                <BusBasicInfo/>
+            </GvBusBasicInfoList.Provider>*/}
+
         </Modal>
       </StyledEngineProvider>
   );

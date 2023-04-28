@@ -48,6 +48,7 @@ const MyMuiCard = ({title, subtitle, children, cardOnClick}: {
           <StyledCardContent>
             <StyledTitle>{title}</StyledTitle>
             <StyledSubtitle>{subtitle}</StyledSubtitle>
+
             {children}
           </StyledCardContent>
         </StyledCard>

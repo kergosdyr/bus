@@ -47,11 +47,12 @@ export const MySearchConsole = (props) => {
   const [isModalPopupOpen, setModalPopupOpen] = useState(false);
 
   let clickedBusStopName : string;
-  const [toModal, setToModal] = useState({modalTitle: "", modalSubTitle: ""});
-  const cardOnClick = ({modalTitle, modalSubTitle} : {modalTitle: string, modalSubTitle: string}) => {
+  const [toModal, setToModal] = useState({modalTitle: "", modalSubTitle: "", modalContent: ""});
+  const cardOnClick = ({modalTitle, modalSubTitle, modalContent} : {modalTitle: string, modalSubTitle: string, modalContent :string}) => {
     setToModal({
       modalTitle: modalTitle,
-      modalSubTitle: modalSubTitle
+      modalSubTitle: modalSubTitle,
+      modalContent : modalContent
     })
     setModalPopupOpen(!isModalPopupOpen);
   }
@@ -70,7 +71,8 @@ export const MySearchConsole = (props) => {
                       children={"없음"}
                       cardOnClick={() => cardOnClick({
                         modalTitle: "검색 결과가 없습니다.",
-                        modalSubTitle: "검색어를 입력해주세요."
+                        modalSubTitle: "검색어를 입력해주세요.",
+                        modalContent : "정류서 정보가 없습니다."
                       })}
                   />
 
@@ -84,7 +86,8 @@ export const MySearchConsole = (props) => {
                             children={busStop.arsId}
                             cardOnClick={() => cardOnClick({
                               modalTitle: busStop.stationNm,
-                              modalSubTitle: busStop.stationId
+                              modalSubTitle: busStop.stationId,
+                              modalContent : busStop.arsId,
                             })}
                         />
                     );
