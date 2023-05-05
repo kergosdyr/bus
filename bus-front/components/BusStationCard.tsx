@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
+import { useCallback } from 'react';
 
 interface ICardProps {
-    key: string;
-    title?: string;
-    description?: string;
-    onClick?: () => void;
+  key: string;
+  title?: string;
+  description?: string;
+  onClick: (title: string, description: string) => void;
 }
 
 const CardStyles = tw.div`
   bg-white
-  shadow-lg
   rounded-lg
+  border-2
+  border-gray-400
+  hover:border-dotted
+  text-center
   overflow-hidden
   p-4
   md:p-6
@@ -29,15 +33,17 @@ const Description = styled.p`
   color: #666;
 `;
 
-const BusStationCard = ({ title, description, onClick}: ICardProps ) => {
-    return (
-        <div>
-            <CardStyles>
-                <Title>{title}</Title>
-                <Description>{description}</Description>
-            </CardStyles>
-        </div>
-    );
-}
+const BusStationCard = ({ title, description, onClick }: ICardProps) => {
+  const cardOnClick = useCallback(() => {
+    onClick(title ?? '', description ?? '');
+  }, [title, description, onClick]);
+
+  return (
+    <CardStyles onClick={cardOnClick}>
+      <Title>{title}</Title>
+      <Description>{description}</Description>
+    </CardStyles>
+  );
+};
 
 export default BusStationCard;
