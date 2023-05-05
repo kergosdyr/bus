@@ -86,6 +86,7 @@ const ModalBodyWrapper = tw.div`
   relative
    p-6
     flex-auto
+    text-center
 `;
 const ModalSecondButtonWrapper = tw.div`
                     flex
