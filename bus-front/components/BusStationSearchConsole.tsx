@@ -14,9 +14,9 @@ export const BusStationSearchConsole = (props: MySearchConsoleProps) => {
 
   const onCardClick = useCallback(
     (title: string = '', description: string = '') => {
-      busStationModal.onOpen();
-      busStationModal.title = title;
-      busStationModal.description = description;
+        busStationModal.title = title;
+        busStationModal.description = description;
+        busStationModal.onOpen();
     },
     [busStationModal]
   );

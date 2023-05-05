@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface BusStationModal {
+interface BusStationModalStore {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
@@ -8,7 +8,7 @@ interface BusStationModal {
     description: string;
 }
 
-const useBusStationModal = create<BusStationModal>((set) => ({
+const useBusStationModal = create<BusStationModalStore>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),

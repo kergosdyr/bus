@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const TextFieldWrapper = styled.div`
   position: relative;
+  margin-bottom: 1rem;
 `;
 
 const TextFieldInput = styled.input`

@@ -35,7 +35,7 @@ const Description = styled.p`
 
 const BusStationCard = ({ title, description, onClick }: ICardProps) => {
   const cardOnClick = useCallback(() => {
-    onClick(title ?? '', description ?? '');
+    onClick(title ?? "", description ?? "");
   }, [title, description, onClick]);
 
   return (
