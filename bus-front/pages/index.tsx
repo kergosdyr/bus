@@ -1,26 +1,24 @@
 import React, {useState} from "react";
 import MyGoogleMap from "@/components/MyGoogleMap";
-import {Grid} from "@mui/material";
-import {MySearchConsole} from "@/components/MySearchConsole";
+import {BusStationSearchConsole} from "@/components/BusStationSearchConsole";
+import GridWrapper from "@/components/GridWrapper";
+import tw from "tailwind-styled-components";
 
-
+const GridColConsole = tw.div`col-span-1 pl-4 pt-4 overflow-y-auto h-screen`;
+const GridColMap = tw.div`col-span-2`;
 
 export default function Home() {
     const [selectedBusStopList, setSeletedBusStopList] = useState([]);
     return (
         <>
-            <Grid container spacing={2}
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-            >
-                <Grid item xs={3} sx={{overflowY: "scroll", maxHeight: "100vh" }}>
-                    <MySearchConsole selectedBusStopList={selectedBusStopList} />
-                </Grid>
-                <Grid item xs>
+            <GridWrapper>
+                <GridColConsole>
+                    <BusStationSearchConsole selectedBusStopList={selectedBusStopList}/>
+                </GridColConsole>
+                <GridColMap>
                     <MyGoogleMap setSeletedBusStopList={setSeletedBusStopList}/>
-                </Grid>
-            </Grid>
+                </GridColMap>
+            </GridWrapper>
         </>
     )
 }

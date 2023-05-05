@@ -8,9 +8,20 @@ const containerStyle = {
   height: '100vh'
 };
 
+export interface IBusStop {
+  gpsX: string;
+  gpsY: string;
+  stationNm : string;
+  stationId : string;
+  arsId : string;
+}
+
+interface IMyGoogleMapProps {
+  setSeletedBusStopList: (busStopList: IBusStop[]) => void;
+}
 
 const MyGoogleMap = React.memo(
-    (props) => {
+    (props: IMyGoogleMapProps) => {
       const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
       const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
@@ -43,14 +54,14 @@ const MyGoogleMap = React.memo(
           const busStopList = busStopApiResult.msgBody.itemList;
           if (!busStopList) return;
           props.setSeletedBusStopList(busStopList);
-          setMapClickMakers(busStopList
-          .filter((busStop) => busStop && busStop.gpsX && busStop.gpsY)
-          .map((busStop) => {
-            return {
-              lat: parseFloat(busStop.gpsY),
-              lng: parseFloat(busStop.gpsX)
-            }
-          }));
+          setMapClickMakers(
+              busStopList.filter((busStop : IBusStop) => busStop && busStop.gpsX && busStop.gpsY)
+              .map((busStop : IBusStop) => {
+                return {
+                  lat: parseFloat(busStop.gpsY),
+                  lng: parseFloat(busStop.gpsX)
+                }
+              }));
         });
 
       }, [])

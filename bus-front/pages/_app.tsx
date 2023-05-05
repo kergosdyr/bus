@@ -1,6 +1,5 @@
 // _app.tsx
 import type { AppProps } from "next/app";
-import CssBaseline from "@mui/material/CssBaseline";
 import '../styles/globals.css';
 
 const App = (props: AppProps) => {
@@ -8,7 +7,6 @@ const App = (props: AppProps) => {
 
     return (
         <>
-            <CssBaseline />
             <Component {...pageProps} />
         </>
     );

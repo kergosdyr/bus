@@ -12,8 +12,6 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@googlemaps/react-wrapper": "^1.1.35",
-    "@mui/material": "^5.11.16",
-    "@mui/styles": "^5.11.16",
     "@react-google-maps/api": "^2.18.1",
     "@types/react-dom": "18.0.11",
     "babel-plugin-styled-components": "^2.1.1",
@@ -28,8 +26,10 @@
     "@types/node": "18.15.11",
     "@types/react": "18.0.32",
     "@types/styled-components": "^5.1.26",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
     "tailwind-styled-components": "^2.2.0",
-    "tailwindcss": "^3.3.1",
+    "tailwindcss": "^3.3.2",
     "typescript": "5.0.3"
   }
 }
