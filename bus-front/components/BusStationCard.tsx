@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import useBusStationModal from '@/hooks/useBusStationModal';
+import useSWR from 'swr';
 
 interface ICardProps {
   key: string;
   title?: string;
-  description?: string;
-  onClick: (title: string, description: string) => void;
+  arsId?: string;
 }
 
 const CardStyles = tw.div`
@@ -33,15 +34,19 @@ const Description = styled.p`
   color: #666;
 `;
 
-const BusStationCard = ({ title, description, onClick }: ICardProps) => {
-  const cardOnClick = useCallback(() => {
-    onClick(title ?? "", description ?? "");
-  }, [title, description, onClick]);
+const BusStationCard = ({ title, arsId }: ICardProps) => {
+  const busStationModal = useBusStationModal();
+
+  const onCardClick = useCallback(() => {
+    busStationModal.title = title || '';
+    busStationModal.arsId = arsId || '';
+    busStationModal.onOpen();
+  }, [busStationModal.isOpen, title, arsId]);
 
   return (
-    <CardStyles onClick={cardOnClick}>
+    <CardStyles onClick={onCardClick}>
       <Title>{title}</Title>
-      <Description>{description}</Description>
+      <Description>{arsId}</Description>
     </CardStyles>
   );
 };

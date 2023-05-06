@@ -3,6 +3,7 @@ import { IBusStop } from '@/components/MyGoogleMap';
 import BusStationCard from '@/components/BusStationCard';
 import SearchTextField from '@/components/SearchTextField';
 import useBusStationModal from '@/hooks/useBusStationModal';
+import useSWR from "swr";
 
 interface MySearchConsoleProps {
   selectedBusStopList: IBusStop[];
@@ -10,16 +11,7 @@ interface MySearchConsoleProps {
 
 export const BusStationSearchConsole = (props: MySearchConsoleProps) => {
   const selectedBusStopList = props.selectedBusStopList;
-  const busStationModal = useBusStationModal();
 
-  const onCardClick = useCallback(
-    (title: string = '', description: string = '') => {
-        busStationModal.title = title;
-        busStationModal.description = description;
-        busStationModal.onOpen();
-    },
-    [busStationModal]
-  );
 
   return (
     <>
@@ -29,8 +21,7 @@ export const BusStationSearchConsole = (props: MySearchConsoleProps) => {
           <BusStationCard
             key={'noResult'}
             title={'검색 결과가 없습니다.'}
-            description={'검색어를 입력해주세요.'}
-            onClick={onCardClick}
+            arsId={'검색어를 입력해주세요.'}
           />
         ) : (
           selectedBusStopList.map((busStop, idx) => {
@@ -38,8 +29,7 @@ export const BusStationSearchConsole = (props: MySearchConsoleProps) => {
               <BusStationCard
                 key={idx.toString()}
                 title={busStop.stationNm}
-                description={busStop.stationId}
-                onClick={onCardClick}
+                arsId={busStop.stationId}
               />
             );
           })

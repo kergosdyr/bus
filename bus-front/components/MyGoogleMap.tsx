@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
-import nearbybusstop from '@/pages/api/nearbybusstop';
+import nearbybusstop from '@/apis/nearbybusstop';
 
 const containerStyle = {
   width: '100%',

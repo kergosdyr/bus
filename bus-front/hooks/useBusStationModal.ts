@@ -5,7 +5,7 @@ interface BusStationModalStore {
     onOpen: () => void;
     onClose: () => void;
     title: string;
-    description: string;
+    arsId: string;
 }
 
 const useBusStationModal = create<BusStationModalStore>((set) => ({
@@ -13,7 +13,7 @@ const useBusStationModal = create<BusStationModalStore>((set) => ({
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
     title: "",
-    description: "",
+    arsId: "",
 }));
 
 
