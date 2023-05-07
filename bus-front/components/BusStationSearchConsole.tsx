@@ -29,7 +29,7 @@ export const BusStationSearchConsole = (props: MySearchConsoleProps) => {
               <BusStationCard
                 key={idx.toString()}
                 title={busStop.stationNm}
-                arsId={busStop.stationId}
+                arsId={busStop.arsId}
               />
             );
           })
