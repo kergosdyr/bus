@@ -6,15 +6,15 @@ import { useEffect } from 'react';
 export const BusStationSpecModal = () => {
   const busStationModal = useBusStationModal();
 
-  const fetcher = (arsId: string) =>{
+  const fetcher = (arsId: string) => {
     return fetch(`/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(arsId || '')}`).then(
       (res) => res.json()
     );
-  }
+  };
 
   const { data, mutate } = useSWR(busStationModal.arsId ?? '', fetcher);
   let descLength = data?.msgBody?.itemList?.length ?? 0;
-    console.log('descLength', data);
+  console.log('descLength', data);
 
   return (
     <Modal
