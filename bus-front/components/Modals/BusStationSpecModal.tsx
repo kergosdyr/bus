@@ -7,7 +7,7 @@ export const BusStationSpecModal = () => {
   const busStationModal = useBusStationModal();
 
   const fetcher = (arsId: string) =>{
-    console.log('arsId', arsId);
+    console.log(`/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(arsId || '')}`);
     return fetch(`/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(arsId || '')}`).then(
       (res) => res.json()
     );

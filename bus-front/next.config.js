@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   compiler : {
     styledComponents: true
-  }
+  },
+  transpilePackages: ['react-icons']
 }
 
 module.exports = nextConfig

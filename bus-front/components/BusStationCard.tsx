@@ -13,14 +13,14 @@ interface ICardProps {
 const CardStyles = tw.div`
   bg-white
   rounded-lg
-  border-2
-  border-gray-400
-  hover:border-dotted
+  drop-shadow-lg
+  hover:drop-shadow-xl
   text-center
   overflow-hidden
   p-4
   md:p-6
   mb-4
+  mx-2
 `;
 
 const Title = styled.h2`
