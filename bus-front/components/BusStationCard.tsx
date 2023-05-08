@@ -17,6 +17,7 @@ const CardStyles = tw.div`
   hover:drop-shadow-xl
   text-center
   overflow-hidden
+    cursor-pointer
   p-4
   md:p-6
   mb-4
@@ -43,10 +44,28 @@ const BusStationCard = ({ title, arsId }: ICardProps) => {
     busStationModal.onOpen();
   }, [busStationModal.isOpen, title, arsId]);
 
+  const fetcher = (arsId: string) => {
+    return fetch(`/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(arsId || '')}`).then(
+      (res) => res.json()
+    );
+  };
+
+  const { data } = useSWR(busStationModal.arsId ?? '', fetcher);
+
   return (
     <CardStyles onClick={onCardClick}>
       <Title>{title}</Title>
       <Description>{arsId}</Description>
+      <div className={'mt-2 flex flex-col gap-2 justify-center items-center'}>
+        {data?.msgBody?.itemList?.map((route: any) => (
+          <button
+              key={route.busRouteId}
+            className={'border-2 border-sky-500 bg-white text-sky-500 hover:bg-sky-500 hover:text-white font-bold py-2 px-4 rounded-full'}
+          >
+            {route.busRouteNm}
+          </button>
+        ))}
+      </div>
     </CardStyles>
   );
 };

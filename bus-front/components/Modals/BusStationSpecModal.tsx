@@ -1,7 +1,6 @@
 import useBusStationModal from '@/hooks/useBusStationModal';
 import Modal from '@/components/Modals/Modal';
 import useSWR from 'swr';
-import { useEffect } from 'react';
 
 export const BusStationSpecModal = () => {
   const busStationModal = useBusStationModal();
@@ -12,9 +11,8 @@ export const BusStationSpecModal = () => {
     );
   };
 
-  const { data, mutate } = useSWR(busStationModal.arsId ?? '', fetcher);
+  const { data } = useSWR(busStationModal.arsId ?? '', fetcher);
   let descLength = data?.msgBody?.itemList?.length ?? 0;
-  console.log('descLength', data);
 
   return (
     <Modal
