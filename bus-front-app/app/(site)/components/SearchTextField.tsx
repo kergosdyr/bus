@@ -8,28 +8,28 @@ interface ITextFieldPlaceHolder {
 
 const SearchTextField = ({ placeholder }: ITextFieldPlaceHolder) => {
   return (
-    <div className="    relative    w-full    mb-4    flex    flex-row    justify-center">
+    <div className="relative mb-4 flex w-full flex-row justify-center">
       <input
         className="
-        px-2
-    rounded-lg
-    bg-white
-    mr-2
-    border-2
-    border-green-400
-    focus:outline-none
-    focus:drop-shadow-lg
-    w-full
-    shadow-sm
-"
+            mr-2
+            w-full
+            rounded-lg
+            border-2
+            border-green-400
+            bg-white
+            px-2
+            shadow-sm
+            focus:outline-none
+            focus:drop-shadow-lg
+            "
         type="text"
         placeholder={placeholder}
       />
       <div
         className="
-              p-2
-              bg-green-500
               rounded-full
+              bg-green-500
+              p-2
               text-white
             "
       >

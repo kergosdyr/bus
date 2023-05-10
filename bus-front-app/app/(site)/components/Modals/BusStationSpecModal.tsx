@@ -1,15 +1,21 @@
 'use client';
 
 import useSWR from 'swr';
-import fetcher from "@/libs/fetcher";
-import useBusStationModal from "@/app/hooks/useBusStationModal";
-import Modal from "@/app/(site)/components/Modals/Modal";
+import fetcher from '@/libs/fetcher';
+import useBusStationModal from '@/app/hooks/useBusStationModal';
+import Modal from '@/app/(site)/components/Modals/Modal';
 
-export const BusStationSpecModal = () => {
+const BusStationSpecModal = () => {
   const busStationModal = useBusStationModal();
 
+  if (!busStationModal?.busStation?.arsId) return <></>;
 
-  const { data } = useSWR(`/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(busStationModal?.busStation?.arsId || '')}`, fetcher);
+  const { data } = useSWR(
+    `/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(
+      busStationModal?.busStation?.arsId || ''
+    )}`,
+    fetcher
+  );
   let descLength = data?.msgBody?.itemList?.length ?? 0;
 
   return (
@@ -27,3 +33,5 @@ export const BusStationSpecModal = () => {
     />
   );
 };
+
+export default BusStationSpecModal;

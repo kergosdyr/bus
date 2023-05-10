@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import fetcher from '@/libs/fetcher';
 import useNearByBusStation, { IBusStation } from '@/app/hooks/useNearByBusStationStore';
 import { MarkerF } from '@react-google-maps/api';
+import { useCallback, useEffect } from 'react';
 
 interface IMapMarkersProps {
   center: {
@@ -13,15 +14,7 @@ interface IMapMarkersProps {
 }
 
 const MapMarkers = ({ center }: IMapMarkersProps) => {
-  let { busStations } = useNearByBusStation();
-  const { data } = useSWR(
-    `/api/rest/busStop/getByPos/${encodeURIComponent(center.lng)}/${encodeURIComponent(
-      center.lat
-    )}`,
-    fetcher
-  );
-
-  busStations = [...data?.msgBody?.itemList];
+  const { busStations, setBusStations } = useNearByBusStation();
 
   return (
     <>

@@ -6,5 +6,9 @@ module.exports = {
   semi: true,
   singleQuote: true,
   quoteProps: 'as-needed',
-  jsxSingleQuote: false
+  jsxSingleQuote: false,
+  plugins: [require('prettier-plugin-tailwindcss')],
+  tailwindFunctions: ['clsx'],
+
+
 }

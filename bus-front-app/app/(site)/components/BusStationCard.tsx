@@ -30,28 +30,28 @@ const BusStationCard = ({ busStation }: ICardProps) => {
   return (
     <div
       className="
-        bg-white
+        mx-2
+        mb-4
+        cursor-pointer
+        overflow-hidden
         rounded-lg
+        bg-white
+        p-4
+        text-center
         drop-shadow-lg
         hover:drop-shadow-xl
-        text-center
-        overflow-hidden
-        cursor-pointer
-        p-4
         md:p-6
-        mb-4
-        mx-2
     "
       onClick={onCardClick}
     >
       <h2 className={'font-bold'}> {stationNm}</h2>
       <p className={'text-gray-300'}>{arsId}</p>
-      <div className={'mt-2 flex flex-col gap-2 justify-center items-center'}>
+      <div className={'mt-2 flex flex-col items-center justify-center gap-2'}>
         {data?.msgBody?.itemList?.map((route: any) => (
           <button
             key={route.busRouteId}
             className={
-              'border-2 border-sky-500 bg-white text-sky-500 hover:bg-sky-500 hover:text-white font-bold py-2 px-4 rounded-full'
+              'rounded-full border-2 border-sky-500 bg-white px-4 py-2 font-bold text-sky-500 hover:bg-sky-500 hover:text-white'
             }
           >
             {route.busRouteNm}

@@ -5,9 +5,8 @@ import SearchTextField from "@/app/(site)/components/SearchTextField";
 import BusStationCard from "@/app/(site)/components/BusStationCard";
 
 
-export const BusStationSearchConsole = () => {
+const BusStationSearchConsole = () => {
   const {busStations} = useNearByBusStation();
-
   return (
     <>
       <div className={"flex flex-col justify-center overflow-hidden"}>
@@ -31,3 +30,4 @@ export const BusStationSearchConsole = () => {
     </>
   );
 };
+export default BusStationSearchConsole;
