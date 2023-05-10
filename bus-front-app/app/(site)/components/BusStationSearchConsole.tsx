@@ -9,7 +9,7 @@ const BusStationSearchConsole = () => {
   const {busStations} = useNearByBusStation();
   return (
     <>
-      <div className={"flex flex-col justify-center overflow-hidden"}>
+      <div className={"flex flex-col justify-start overflow-hidden"}>
         <SearchTextField placeholder={'검색어를 입력해주세요'} />
         {!busStations?.length ? (
           <BusStationCard

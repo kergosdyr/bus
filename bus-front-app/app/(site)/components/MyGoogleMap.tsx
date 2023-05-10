@@ -42,6 +42,7 @@ const MyGoogleMap = memo(() => {
 
   const onClick = useCallback(function (map: any) {
     const center: Coordinates = { lat: map.latLng.lat(), lng: map.latLng.lng() };
+    setNearByBusStations(center);
     setCenter(center);
   }, []);
 
@@ -55,7 +56,7 @@ const MyGoogleMap = memo(() => {
       onUnmount={onUnmount}
       onClick={onClick}
     >
-      {/*<MapMarkers center={center} />*/}
+      <MapMarkers center={center} />
     </GoogleMap>
   ) : (
     <></>

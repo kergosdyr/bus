@@ -11,9 +11,8 @@ const BusStationSpecModal = () => {
   if (!busStationModal?.busStation?.arsId) return <></>;
 
   const { data } = useSWR(
-    `/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(
-      busStationModal?.busStation?.arsId || ''
-    )}`,
+    busStationModal?.busStation?.arsId ? `/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(
+      busStationModal?.busStation?.arsId)}` : null,
     fetcher
   );
   let descLength = data?.msgBody?.itemList?.length ?? 0;

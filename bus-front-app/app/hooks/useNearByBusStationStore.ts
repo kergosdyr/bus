@@ -18,24 +18,25 @@ export interface IBusStation {
 
 const useNearByBusStation = create<INearByBusStationStore>((set) => ({
   busStations: [],
-  setNearByBusStations: (center) => {
-    const { data } = useSWR(
-      `/api/rest/busStop/getByPos/${encodeURIComponent(center.lng)}/${encodeURIComponent(
-        center.lat
-      )}`,
-      fetcher
+  setNearByBusStations: async (center) => {
+    await fetcher(`/api/rest/busStop/getByPos/${encodeURIComponent(center.lng)}/${encodeURIComponent(center.lat)}`).then(
+      (data) => {
+        console.log(data);
+        const fetchedBusStations = data?.msgBody?.itemList.map((item: any) => {
+          return {
+            stationId: item.stationId,
+            stationNm: item.stationNm,
+            arsId: item.arsId,
+            gpsX: item.gpsX,
+            gpsY: item.gpsY,
+          };
+        });
+        set({ busStations: [...fetchedBusStations] });
+      },
     );
-    const fetchedBusStations = data?.msgBody?.itemList.map((item: any) => {
-      return {
-        stationId: item.stationId,
-        stationNm: item.stationName,
-        arsId: item.arsId,
-        gpsX: item.gpsX,
-        gpsY: item.gpsY,
-      };
-    });
-    set({ busStations: [...fetchedBusStations] });
   },
 }));
+
+    
 
 export default useNearByBusStation;
