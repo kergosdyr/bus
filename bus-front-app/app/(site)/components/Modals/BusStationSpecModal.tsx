@@ -8,11 +8,9 @@ import Modal from '@/app/(site)/components/Modals/Modal';
 const BusStationSpecModal = () => {
   const busStationModal = useBusStationModal();
 
-  if (!busStationModal?.busStation?.arsId) return <></>;
-
+  const arsId = busStationModal?.busStation?.arsId;
   const { data } = useSWR(
-    busStationModal?.busStation?.arsId ? `/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(
-      busStationModal?.busStation?.arsId)}` : null,
+    arsId ? `/api/rest/stationinfo/getRouteByStation/${encodeURIComponent(arsId)}` : null,
     fetcher
   );
   let descLength = data?.msgBody?.itemList?.length ?? 0;
