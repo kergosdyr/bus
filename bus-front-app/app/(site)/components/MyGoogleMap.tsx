@@ -6,6 +6,7 @@ import MapMarkers from '@/app/(site)/components/MapMarkers';
 import useSWR from 'swr';
 import fetcher from '@/libs/fetcher';
 import useNearByBusStation from '@/app/hooks/useNearByBusStationStore';
+import { useNowCenter } from '@/app/hooks/useNowCenter';
 
 export interface Coordinates {
   lat: number;
@@ -27,7 +28,7 @@ const MyGoogleMap = memo(() => {
   const initialCenter: Coordinates = { lat: 37.53790779023827, lng: 126.9993782043457 };
   const [center, setCenter] = useState(initialCenter);
   const [map, setMap] = useState(null);
-  const { busStations, setNearByBusStations } = useNearByBusStation();
+  const { setNowCenter } = useNowCenter();
 
   const onLoad = useCallback(function callback(map: any) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -42,22 +43,24 @@ const MyGoogleMap = memo(() => {
 
   const onClick = useCallback(function (map: any) {
     const center: Coordinates = { lat: map.latLng.lat(), lng: map.latLng.lng() };
-    setNearByBusStations(center);
     setCenter(center);
+    setNowCenter(center);
   }, []);
 
   // @ts-ignore
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-      onClick={onClick}
-    >
-      <MapMarkers center={center} />
-    </GoogleMap>
+    <div className="flex h-full w-full flex-col">
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        onClick={onClick}
+      >
+        <MapMarkers center={center} />
+      </GoogleMap>
+    </div>
   ) : (
     <></>
   );

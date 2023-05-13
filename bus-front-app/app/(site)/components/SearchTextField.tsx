@@ -8,7 +8,7 @@ interface ITextFieldPlaceHolder {
 
 const SearchTextField = ({ placeholder }: ITextFieldPlaceHolder) => {
   return (
-    <div className="relative mb-4 flex w-full flex-row justify-center">
+    <div className="relative mb-4 mt-2 flex w-full flex-row justify-center px-2">
       <input
         className="
             mr-2
@@ -31,6 +31,7 @@ const SearchTextField = ({ placeholder }: ITextFieldPlaceHolder) => {
               bg-green-500
               p-2
               text-white
+              hover:drop-shadow-lg
             "
       >
         <BiSearch size={18} />

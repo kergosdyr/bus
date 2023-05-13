@@ -14,7 +14,7 @@ interface IMapMarkersProps {
 }
 
 const MapMarkers = ({ center }: IMapMarkersProps) => {
-  const { busStations, setBusStations } = useNearByBusStation();
+  const { busStations } = useNearByBusStation(center);
 
   return (
     <>

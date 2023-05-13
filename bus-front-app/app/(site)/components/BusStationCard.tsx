@@ -33,7 +33,6 @@ const BusStationCard = ({ busStation }: ICardProps) => {
         mx-2
         mb-4
         cursor-pointer
-        overflow-hidden
         rounded-lg
         bg-white
         p-4
