@@ -2,11 +2,11 @@
 
 import useSWR from 'swr';
 import fetcher from '@/libs/fetcher';
-import useBusStationModal from '@/app/hooks/useBusStationModal';
+import useBusStationModalStore from '@/app/hooks/useBusStationModalStore';
 import Modal from '@/app/(site)/components/Modals/Modal';
 
 const BusStationSpecModal = () => {
-  const busStationModal = useBusStationModal();
+  const busStationModal = useBusStationModalStore();
 
   const arsId = busStationModal?.busStation?.arsId;
   const { data } = useSWR(

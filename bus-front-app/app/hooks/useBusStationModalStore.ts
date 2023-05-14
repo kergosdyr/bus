@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { IBusStation } from '@/app/hooks/useNearByBusStationStore';
+import { IBusStation } from '@/app/hooks/useNearByBusStation';
 
 interface BusStationModalStore {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface BusStationModalStore {
   busStation: IBusStation | null;
 }
 
-const useBusStationModal = create<BusStationModalStore>((set) => ({
+const useBusStationModalStore = create<BusStationModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
@@ -17,4 +17,4 @@ const useBusStationModal = create<BusStationModalStore>((set) => ({
   busStation: null,
 }));
 
-export default useBusStationModal;
+export default useBusStationModalStore;

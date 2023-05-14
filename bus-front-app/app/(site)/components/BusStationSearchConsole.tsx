@@ -1,13 +1,14 @@
 'use client';
 
-import useNearByBusStation from '@/app/hooks/useNearByBusStationStore';
+import useNearByBusStation from '@/app/hooks/useNearByBusStation';
 import SearchTextField from '@/app/(site)/components/SearchTextField';
 import BusStationCard from '@/app/(site)/components/BusStationCard';
-import { useNowCenter } from '@/app/hooks/useNowCenter';
+import { useNowCenterStore } from '@/app/hooks/useNowCenterStore';
 
 const BusStationSearchConsole = () => {
-  const { nowCenter } = useNowCenter();
+  const { nowCenter } = useNowCenterStore();
   const { busStations } = useNearByBusStation(nowCenter);
+
   return (
     <div
       className="

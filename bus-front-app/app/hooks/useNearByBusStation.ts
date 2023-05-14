@@ -16,9 +16,11 @@ export interface IBusStation {
 
 const useNearByBusStation = (center: Coordinates) => {
   const { data, error } = useSWR(
-    `/api/rest/busStop/getByPos/${encodeURIComponent(center.lng)}/${encodeURIComponent(
-      center.lat
-    )}`,
+    center && center.lat && center.lng
+      ? `/api/rest/busStop/getByPos/${encodeURIComponent(center.lng)}/${encodeURIComponent(
+          center.lat
+        )}`
+      : null,
     fetcher
   );
   const fetchedBusStations: IBusStation[] = data?.msgBody?.itemList?.map((item: any) => {

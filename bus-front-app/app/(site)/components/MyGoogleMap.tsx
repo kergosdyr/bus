@@ -2,11 +2,9 @@
 
 import { memo, useCallback, useState } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import MapMarkers from '@/app/(site)/components/MapMarkers';
-import useSWR from 'swr';
-import fetcher from '@/libs/fetcher';
-import useNearByBusStation from '@/app/hooks/useNearByBusStationStore';
-import { useNowCenter } from '@/app/hooks/useNowCenter';
+import MapMarkers from '@/app/(site)/components/Markers/MapMarkers';
+import { useNowCenterStore } from '@/app/hooks/useNowCenterStore';
+import BusMarkers from '@/app/(site)/components/Markers/BusMarkers';
 
 export interface Coordinates {
   lat: number;
@@ -28,7 +26,7 @@ const MyGoogleMap = memo(() => {
   const initialCenter: Coordinates = { lat: 37.53790779023827, lng: 126.9993782043457 };
   const [center, setCenter] = useState(initialCenter);
   const [map, setMap] = useState(null);
-  const { setNowCenter } = useNowCenter();
+  const { setNowCenter } = useNowCenterStore();
 
   const onLoad = useCallback(function callback(map: any) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -59,6 +57,7 @@ const MyGoogleMap = memo(() => {
         onClick={onClick}
       >
         <MapMarkers center={center} />
+        <BusMarkers />
       </GoogleMap>
     </div>
   ) : (
