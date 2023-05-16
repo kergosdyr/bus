@@ -16,6 +16,7 @@ const MapMarkers = (props: IMapMarkersProps) => {
       {busStations?.map((busStation: IBusStation) => {
         return (
           <GoogleMarker
+            key={busStation.stationId}
             id={busStation.stationId}
             coordinates={{
               lat: Number.parseFloat(busStation.gpsY),

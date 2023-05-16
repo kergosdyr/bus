@@ -9,7 +9,6 @@ export default function Home() {
       <div className="flex h-screen w-full items-center justify-center">
         <BusStationSearchConsole />
         <MyGoogleMap />
-        <BusStationSpecModal />
       </div>
     </>
   );

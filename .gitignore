@@ -76,4 +76,4 @@ yarn-error.log*
 next-env.d.ts
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs
-/bus-front/.env.local
+/bus-front-app/.env.local

@@ -3,6 +3,7 @@
 import GoogleMarker from '@/app/(site)/components/Markers/GoogleMarker';
 import { useBusRouteStore } from '@/app/hooks/useBusRouteStore';
 import useBusPos, { BusPos } from '@/app/hooks/useBusPos';
+import { toast } from 'react-hot-toast';
 
 const BusMarkers = () => {
   const { busRoute } = useBusRouteStore();
@@ -13,6 +14,7 @@ const BusMarkers = () => {
       {busPosList?.map((busPos: BusPos) => {
         return (
           <GoogleMarker
+            key={busPos.vehId}
             id={busPos.vehId}
             coordinates={{
               lat: Number.parseFloat(busPos.gpsY),
